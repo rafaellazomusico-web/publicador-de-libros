@@ -1,30 +1,29 @@
 import os
+import time
 from google import genai
+from google.genai import errors
 
-# Inicializar cliente con la API Key de Gemini
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-
-SYSTEM_INSTRUCTION = """
-Eres un asistente de redacción académica y técnica especializado en teoría musical contemporánea, 
-sistemas microtonales, orquestación y desarrollo de código para música de cámara (Max/MSP, SuperCollider).
-Tus respuestas deben seguir el rigor analítico de 'The Chain Theory' y 'Music Code'.
-"""
-
-def generar_capitulo():
-    directiva = os.getenv("DIRECTIVA_DIARIA", "Redactar la introducción al módulo de orquestación con patrones de ruido rosa.")
-    prompt = f"Directiva del autor:\n{directiva}\n\nDesarrolla el contenido técnico, teórico y bloques de código correspondientes."
+def generar():
+    client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
     
-    response = client.models.generate_content(
-       model="gemini-2.5-flash",
-        contents=prompt,
-        config={
-            "system_instruction": SYSTEM_INSTRUCTION,
-            "temperature": 0.3,
-        }
-    )
-    return response.text
+    # Intentar hasta 5 veces si el servidor de Google está saturado (503)
+    for intento in range(1, 6):
+        try:
+            print(f"Enviando solicitud a gemini-3.8-flash (Intento {intento})...")
+            response = client.models.generate_content(
+                model="gemini-3.8-flash",
+                contents="Escribe el borrador del siguiente capítulo...",
+            )
+            print("--- ¡ÉXITO! Contenido generado ---")
+            print(response.text)
+            return
+        except errors.APIError as e:
+            if "503" in str(e) or "UNAVAILABLE" in str(e):
+                print(f"Servidor saturado (503). Esperando 10 segundos para reintentar...")
+                time.sleep(10)
+            else:
+                raise e
+    raise Exception("No se pudo conectar tras 5 intentos por alta demanda.")
 
 if __name__ == "__main__":
-    borrador = generar_capitulo()
-    print("--- BORRADOR GENERADO CON ÉXITO ---")
-    print(borrador)
+    generar()
