@@ -3,7 +3,6 @@ import time
 import engine  # Importa las funciones matemáticas de tu engine.py
 from google import genai
 
-# Inicializar cliente de Gemini usando la SDK oficial
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 
 def cargar_prompt_maestro():
@@ -37,26 +36,29 @@ def generar_siguiente_capitulo():
     
     prompt_completo = f"{prompt_base}\n\n---\n\nTAREA ACTUAL:\n{tema_capitulo}"
     
-    print("Enviando petición a Gemini...")
-    
-    # LÓGICA DE REINTENTOS PARA EVITAR ERRORES 503 POR SATURACIÓN
-    intentos = 0
-    max_intentos = 3
+    # Lista de modelos con fallback
+    modelos = ["gemini-3.8-flash", "gemini-2.5-flash"]
     response = None
-    
-    while intentos < max_intentos:
-        try:
-            response = client.models.generate_content(
-                model="gemini-3.8-flash",
-                contents=prompt_completo,
-            )
+
+    for modelo in modelos:
+        print(f"Probando generación con el modelo: {modelo}...")
+        for intento in range(1, 4):
+            try:
+                response = client.models.generate_content(
+                    model=modelo,
+                    contents=prompt_completo,
+                )
+                print(f"¡Éxito con {modelo}!")
+                break
+            except Exception as e:
+                print(f"Servidor ocupado (intento {intento}/3 con {modelo}). Esperando {intento * 15}s...")
+                time.sleep(intento * 15)
+        
+        if response:
             break
-        except Exception as e:
-            intentos += 1
-            print(f"Servidor ocupado (intento {intentos}/{max_intentos}). Esperando 10 segundos...")
-            time.sleep(10)
-            if intentos == max_intentos:
-                raise e
+
+    if not response:
+        raise RuntimeError("Todos los intentos y modelos fallaron por alta demanda de la API.")
 
     # Guardar la respuesta en archivo Markdown
     nombre_archivo = "capitulo_04_funciones_tonales.md"
