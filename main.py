@@ -2,7 +2,6 @@ import os
 import time
 import engine
 from google import genai
-from google.genai import types
 
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 
@@ -13,7 +12,7 @@ def cargar_prompt_maestro():
 def generar_siguiente_capitulo():
     prompt_base = cargar_prompt_maestro()
     
-    # Datos del engine
+    # Datos calculados por el motor armónico
     datos_n5 = engine.generar_funciones_tonales(5)
     datos_n7 = engine.generar_funciones_tonales(7)
     datos_n9 = engine.generar_funciones_tonales(9)
@@ -36,38 +35,34 @@ def generar_siguiente_capitulo():
     
     prompt_completo = f"{prompt_base}\n\n---\n\nTAREA ACTUAL:\n{tema_capitulo}"
     
-    # Modelos candidatos ordenados por disponibilidad y estabilidad
-    modelos = ["gemini-2.5-flash", "gemini-1.5-flash"]
+    modelo = "gemini-3.8-flash"
+    max_intentos = 5
     response = None
 
-    for modelo in modelos:
-        print(f"Iniciando solicitud con el modelo: {modelo}...")
-        for intento in range(1, 4):
-            try:
-                response = client.models.generate_content(
-                    model=modelo,
-                    contents=prompt_completo,
-                    config=types.GenerateContentConfig(
-                        temperature=0.7,
-                    )
-                )
-                print(f"¡Éxito total generado con {modelo}!")
-                break
-            except Exception as e:
-                print(f"Error o servidor ocupado (intento {intento}/3 con {modelo}): {e}")
-                time.sleep(5)
-        
-        if response:
+    print(f"Iniciando generación con {modelo}...")
+
+    for intento in range(1, max_intentos + 1):
+        try:
+            print(f"Enviando solicitud (intento {intento}/{max_intentos})...")
+            response = client.models.generate_content(
+                model=modelo,
+                contents=prompt_completo,
+            )
+            print(f"¡Éxito total! Capítulo generado correctamente.")
             break
+        except Exception as e:
+            tiempo_espera = intento * 30  # Espera 30s, 60s, 90s, 120s, 150s
+            print(f"Servidor ocupado/saturado ({e}). Esperando {tiempo_espera} segundos antes del siguiente intento...")
+            time.sleep(tiempo_espera)
 
     if not response:
-        raise RuntimeError("No se pudo conectar a la API debido a saturación temporal de los servidores.")
+        raise RuntimeError("El servidor de Gemini siguió ocupado tras múltiples reintentos con pausas prolongadas.")
 
     nombre_archivo = "capitulo_04_funciones_tonales.md"
     with open(nombre_archivo, "w", encoding="utf-8") as f:
         f.write(response.text)
         
-    print(f"Capítulo generado con éxito: {nombre_archivo}")
+    print(f"Capítulo guardado con éxito en: {nombre_archivo}")
 
 if __name__ == "__main__":
     generar_siguiente_capitulo()
