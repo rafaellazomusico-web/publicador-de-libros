@@ -1,7 +1,8 @@
 import os
 import time
-import engine  # Importa las funciones matemáticas de tu engine.py
+import engine
 from google import genai
+from google.genai import types
 
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 
@@ -12,13 +13,12 @@ def cargar_prompt_maestro():
 def generar_siguiente_capitulo():
     prompt_base = cargar_prompt_maestro()
     
-    # Calculamos datos usando el engine para alimentar el prompt
+    # Datos del engine
     datos_n5 = engine.generar_funciones_tonales(5)
     datos_n7 = engine.generar_funciones_tonales(7)
     datos_n9 = engine.generar_funciones_tonales(9)
     datos_n11 = engine.generar_funciones_tonales(11)
     
-    # Definición de la tarea actual con datos calculados
     tema_capitulo = f"""
     Redacta el Capítulo 4: 'Formalización Matemática de la Matriz Bi-Eje de Funciones Tonales (F_N)'.
     
@@ -36,31 +36,33 @@ def generar_siguiente_capitulo():
     
     prompt_completo = f"{prompt_base}\n\n---\n\nTAREA ACTUAL:\n{tema_capitulo}"
     
-    # Lista de modelos con fallback
-    modelos = ["gemini-3.8-flash", "gemini-2.5-flash"]
+    # Modelos candidatos ordenados por disponibilidad y estabilidad
+    modelos = ["gemini-2.5-flash", "gemini-1.5-flash"]
     response = None
 
     for modelo in modelos:
-        print(f"Probando generación con el modelo: {modelo}...")
+        print(f"Iniciando solicitud con el modelo: {modelo}...")
         for intento in range(1, 4):
             try:
                 response = client.models.generate_content(
                     model=modelo,
                     contents=prompt_completo,
+                    config=types.GenerateContentConfig(
+                        temperature=0.7,
+                    )
                 )
-                print(f"¡Éxito con {modelo}!")
+                print(f"¡Éxito total generado con {modelo}!")
                 break
             except Exception as e:
-                print(f"Servidor ocupado (intento {intento}/3 con {modelo}). Esperando {intento * 15}s...")
-                time.sleep(intento * 15)
+                print(f"Error o servidor ocupado (intento {intento}/3 con {modelo}): {e}")
+                time.sleep(5)
         
         if response:
             break
 
     if not response:
-        raise RuntimeError("Todos los intentos y modelos fallaron por alta demanda de la API.")
+        raise RuntimeError("No se pudo conectar a la API debido a saturación temporal de los servidores.")
 
-    # Guardar la respuesta en archivo Markdown
     nombre_archivo = "capitulo_04_funciones_tonales.md"
     with open(nombre_archivo, "w", encoding="utf-8") as f:
         f.write(response.text)
