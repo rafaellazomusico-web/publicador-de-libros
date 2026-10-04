@@ -1,0 +1,27 @@
+name: Publicador Diario de Libros
+
+on:
+  schedule:
+    # Se ejecuta automáticamente todos los días a las 2:00 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Permite probarlo manualmente cuando quieras
+
+jobs:
+  ejecutar-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar código del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Generar contenido con Gemini
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python main.py
