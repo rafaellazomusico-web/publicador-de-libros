@@ -1,4 +1,5 @@
 import os
+import time
 import engine  # Importa las funciones matemáticas de tu engine.py
 from google import genai
 
@@ -38,12 +39,25 @@ def generar_siguiente_capitulo():
     
     print("Enviando petición a Gemini...")
     
-    # SE REEMPLAZA EL MODELO POR EL QUE SOLICITA LA API (CUOTA GRATUITA ACTIVA)
-    response = client.models.generate_content(
-        model="gemini-3.8-flash",
-        contents=prompt_completo,
-    )
+    # LÓGICA DE REINTENTOS PARA EVITAR ERRORES 503 POR SATURACIÓN
+    intentos = 0
+    max_intentos = 3
+    response = None
     
+    while intentos < max_intentos:
+        try:
+            response = client.models.generate_content(
+                model="gemini-3.8-flash",
+                contents=prompt_completo,
+            )
+            break
+        except Exception as e:
+            intentos += 1
+            print(f"Servidor ocupado (intento {intentos}/{max_intentos}). Esperando 10 segundos...")
+            time.sleep(10)
+            if intentos == max_intentos:
+                raise e
+
     # Guardar la respuesta en archivo Markdown
     nombre_archivo = "capitulo_04_funciones_tonales.md"
     with open(nombre_archivo, "w", encoding="utf-8") as f:
