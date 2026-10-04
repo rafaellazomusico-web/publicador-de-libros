@@ -38,9 +38,9 @@ def generar_siguiente_capitulo():
     
     print("Enviando petición a Gemini...")
     
-    # CAMBIO A MODELO FLASH (TIENE CUOTA GRATUITA ACTIVA Y RÁPIDA)
+    # SE REEMPLAZA EL MODELO POR EL QUE SOLICITA LA API (CUOTA GRATUITA ACTIVA)
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-3.8-flash",
         contents=prompt_completo,
     )
     
