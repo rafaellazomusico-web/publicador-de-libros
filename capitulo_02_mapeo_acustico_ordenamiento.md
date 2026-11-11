@@ -2,323 +2,320 @@
 
 ---
 
-## 2.1 Formalización Matemática del Mapeo Acústico ($T_{p,N}$) e Intervalística Derivada de la Cajita Central
+## 2.1 Fundamentos del Mapeo Acústico y Topología de la Cajita Central ($C_N$)
 
-La teoría de cadenas armónicas (*The Chain Theory*) asume como principio fundacional que cualquier escala microtonal regular $N$-ET (sistemas temperados de $N$ divisiones iguales de la octava) puede descomponerse en una trayectoria proyectiva generada por un operador primo fundamental $p \in \mathbb{R}^+$. Dentro de este espacio, la **Cajita Central** ($C_N$) actúa como el núcleo nucleador de la energía espectral del sistema.
+En el marco de *The Chain Theory*, la generación del espacio armónico no se fundamenta en la división empírica del continuo de frecuencias, sino en la proyección isomórfica de un núcleo generador discreto sobre el continuo psicoacústico. Este núcleo, denominado **Cajita Central** ($C_N$), constituye el atractor informacional primario a partir del cual se desdobla la totalidad de la matriz de alturas $T_N$.
 
-### 2.1.1 La Proyección Acústica Modular
-Sea $N \in \mathbb{Z}^+$ el orden dimensional del sistema temperado y sea $p$ la frecuencia normalizada del generador acústico (donde típicamente $p = 3/2$ representa la proyección por quintas pitagóricas puras, o bien $p \in \{3, 5, 7, 11\}$ en afinaciones justas de orden superior). La transformación que mapea cada índice $k \in \mathbb{Z}$ del retículo armónico discreto al continuo de afinación en céntimas modulares ($[0, 1200) \subset \mathbb{R}$) se define como el homomorfismo $\phi_p$:
+Formalmente, para un sistema de afinación de cardinalidad finita $N \in \mathbb{N}$, el espacio de alturas temperadas simétricas se define a través de su pivote medio:
 
-$$\phi_p(k) = \left( 1200 \cdot k \cdot \log_2(p) \right) \pmod{1200}$$
+$$P_m = \left\lfloor \frac{N}{2} \right\rfloor$$
 
-Cuando esta proyección opera sobre una colección finita de índices de la cadena tonal $T_N = \{k_0, k_1, \dots, k_{N-1}\}$, se obtiene el **Mapeo Acústico No Ordenado** $T_{p,N}$:
+La Cajita Central $C_N \subset \mathbb{Z}^4$ representa una tétrada de índices nodales que captura las asimetrías mínimas de conducción de voces dentro del sistema periódico. La proyección de un índice generador $k \in \mathbb{Z}$ sobre el dominio de frecuencias temperadas o justas se realiza mediante el **Operador de Mapeo Acústico** $\mathcal{M}_p$. 
 
-$$T_{p,N} = \phi_p(T_N) = \{ \phi_p(k) \mid k \in T_N \}$$
+Dado un número primo base de proyección armónica $p \in \mathbb{P}$ (típicamente $p = 3$ para sistemas de quintas pitagóricas o afinaciones basadas en la serie armónica, o factores de deformación interválica temperada), definimos la posición acústica del elemento $k$-ésimo en el espacio continuo de cents mediante la función:
 
-### 2.1.2 Topología Interválica de la Cajita Central
-La Cajita Central $C_N$ es el subespacio tetra-dimensional de índices $C_N \subset T_N$ delimitado por la partición mediana $P_m = \lfloor N / 2 \rfloor$. Algebraicamente, en su forma compactada general se define como un vector cuádruple:
+$$\phi(k, p) = \left( 1200 \cdot k \cdot \log_2(p) \right) \pmod{1200}$$
 
-$$C_N = \left( c_0, c_1, c_2, c_3 \right)$$
+Donde la reducción módulo 1200 cents constriñe la estructura resultante dentro del dominio periódico del período cíclico de octava $\mathbb{R} / 1200\mathbb{Z}$. Cuando el sistema se modela en un temperamento igual generalizado de $N$ divisiones ($N$-ET), la cuantización microtonal de la proyección de $C_N$ y de los vectores resultantes se normaliza a través del paso cuántico elemental del sistema:
 
-cuyos elementos representan los nudos sobre los cuales se articula la tensión armónica basal del sistema. La proyección acústica de la Cajita Central, denotada como $\Phi_p(C_N)$, produce el tetrasonido generatriz:
+$$\Delta_{\text{cents}}^{(N)} = \frac{1200}{N}$$
 
-$$\Phi_p(C_N) = \left( \phi_p(c_0), \phi_p(c_1), \phi_p(c_2), \phi_p(c_3) \right)$$
+El mapeo acústico de una colección indexada $V = (v_0, v_1, \dots, v_{m-1})$ bajo la base $p$ se denota como:
 
-A partir de $\Phi_p(C_N)$ se extrae el **Vector de Deltas Acústicos** ($\Delta_{\text{acústico}}$), determinado por las distancias cíclicas entre sus componentes adyacentes:
+$$T_{p,N}(V) = \{ \phi(v_j, p) \mid v_j \in V \}$$
 
-$$\delta_i = \left( \phi_p(c_{i+1}) - \phi_p(c_i) \right) \pmod{1200}, \quad i \in \{0, 1, 2\}$$
+La Cajita Central codifica intrínsecamente la polaridad mayor/menor a través de sus deltas interválicos relativos. Si consideramos la función de intervalos adyacentes para una tétrada ordenada $C_N = [c_0, c_1, c_2, c_3]$:
 
-Este vector $\Delta = (\delta_0, \delta_1, \delta_2)$ establece la morfología interválica fundamental (micro-terceras, segundas neutras, cuartas ensanchadas) que determinará si los acordes subsecuentes en la cadena poseen cualidades Mayores, Menores o Simétricas mediante el Operador de Conducción de Voces (**OVC**).
+$$\vec{\delta}(C_N) = \left( c_1 - c_0, \; c_2 - c_1, \; c_3 - c_2 \right)$$
+
+Estas diferencias relativas determinan los desfases acústicos directos que gobiernan las tensiones de entonación justa y su deformación en microintervalos templados.
 
 ---
 
-## 2.2 Ordenamiento Escalar ($S_{p,N}$), Grados de Paso y Simetría Tonal
+## 2.2 El Algoritmo de Ordenamiento Escalar ($S_{p,N}$) y Distribución Microinterválica
 
-El conjunto $T_{p,N}$, al derivarse de un proceso de intercalación proyectiva simétrica, no se presenta en orden de frecuencia monótono creciente. Para transformar la cadena tensada acústicamente en una escala ejecutable, se requiere la aplicación del **Operador de Ordenamiento Escalar**:
+La matriz primaria $T_N$ se despliega de forma intercalada a partir de $C_N$, conformando una cadena funcional no ordenada escalarmente. El paso del **dominio de generador** (o cadena armónica) al **dominio escalar** requiere un morfismo de ordenamiento estricto.
 
-$$S_{p,N} = \text{sort}(T_{p,N}) = \left( s_0, s_1, s_2, \dots, s_{N-1} \right)$$
+Definimos el **Operador de Ordenamiento Escalar** $\mathcal{S}$ aplicado sobre el conjunto acústico $T_{p,N}$:
+
+$$S_{p,N} = \text{sort}\left( T_{p,N} \right) = \left( s_0, s_1, s_2, \dots, s_{N-1} \right)$$
 
 tal que:
 
 $$0 \le s_0 < s_1 < s_2 < \dots < s_{N-1} < 1200$$
 
-### 2.2.1 El Retículo de Pasos Interválicos (Step Sizes)
-El espectro interválico adyacente viene regido por las diferencias:
+### 2.2.1 Vector Interválico Escalar (Step-Vector)
+A partir de $S_{p,N}$, se extrae el vector de pasos microtonales adyacentes $\vec{\sigma}^{(N)} = (\sigma_0, \sigma_1, \dots, \sigma_{N-1})$, donde:
 
-$$\sigma_j = s_{(j+1) \pmod N} - s_j \pmod{1200}$$
-
-Bajo el Teorema de Steinhaus (conjetura de las tres distancias aplicada a rotaciones de círculos continuos), la secuencia cíclica $(\sigma_0, \sigma_1, \dots, \sigma_{N-1})$ adopta a lo sumo tres valores discretos $\{\sigma_{\text{min}}, \sigma_{\text{med}}, \sigma_{\text{max}}\}$. En los sistemas donde la Cajita Central minimiza la dispersión de fase acústica, la partición degenera en un conjunto bipartito o monovalente, optimizando la homogeneidad de los grados de paso (conducción por segundas microtonales).
-
-```
-Retículo Acústico T_{p,N} (Espacio de Proyección por Índices)
-       [ c_1 ] -------- [ c_3 ] -------- [ c_5 ] ...
-          |                |                |
-       [ c_0 ] -------- [ c_2 ] -------- [ c_4 ] ...
-                         │
-                         ▼  sort()
-Escala S_{p,N} (Círculo de Octava / Espacio Modular Mod 1200 cents)
-   s_0 ───(σ_0)─── s_1 ───(σ_1)─── s_2 ─── ... ───(σ_{N-1})─── s_0
-```
-
-### 2.2.2 Simetría Especular de la Cadena
-La expansión de la matriz primaria se articula mediante la incorporación simétrica de polos alrededor de $C_N$. Si definimos el centro de inversión armónica en el punto medio del espectro:
-
-$$\mu = \frac{1}{N} \sum_{k \in T_N} \phi_p(k)$$
-
-la cadena exhibe invariancia bajo la involución de reflexión espectral:
-
-$$\mathcal{R}(s_j) = (2\mu - s_j) \pmod{1200}$$
-
-lo que asegura que cada grado modal posea un complementario exacto en el espacio de alturas, garantizando la perfecta dualidad funcional de la Matriz Bi-Eje $F_N$.
-
----
-
-## 2.3 Estudio de Casos Discretos: Despliegue Estructural en $N = 9$ y $N = 11$
-
-Analizaremos la construcción endógena, el mapeo acústico y la partición escalar para dos micro-espacios modales de alta relevancia espectral, empleando como generador acústico la quinta justa pitagórica canónica $p = 3/2$ ($1200 \cdot \log_2(3/2) \approx 701.955\text{ cents}$).
-
----
-
-### 2.3.1 Caso I: Sistema $N = 9$
-*Parámetros calculados:*
-- Dimensión: $N = 9$
-- Partición mediana: $P_m = \lfloor 9 / 2 \rfloor = 4$
-- Parámetro de acoplamiento: $A_N = 3$
-- Cajita Central: $C_9 = [3, -1, 4, 0]$
-
-#### A. Expansión de Índices de la Cadena $T_9$
-A partir de la Cajita Central $[3, -1, 4, 0]$, la intercalación de los restantes $N - 4 = 5$ índices se propaga alternando la periferia simétrica:
-
-$$T_9 = [-2, 5, -1, 3, 0, 4, 1, -3, 2]$$
-
-#### B. Proyección Acústica $T_{3/2, 9}$
-Aplicando $\phi_{3/2}(k) = (k \cdot 701.955) \pmod{1200}$:
-
-| Índice $k$ | Expresión Real (cents) | Valor Modular $\phi_{3/2}(k)$ |
-| :---: | :--- | :--- |
-| **$-3$** | $-2105.865 \pmod{1200}$ | $294.135$ |
-| **$-2$** | $-1403.910 \pmod{1200}$ | $996.090$ |
-| **$-1$** | $-701.955 \pmod{1200}$ | $498.045$ |
-| **$0$** | $0.000$ | $0.000$ |
-| **$1$** | $701.955$ | $701.955$ |
-| **$2$** | $1403.910 \pmod{1200}$ | $203.910$ |
-| **$3$** | $2105.865 \pmod{1200}$ | $905.865$ |
-| **$4$** | $2807.820 \pmod{1200}$ | $407.820$ |
-| **$5$** | $3509.775 \pmod{1200}$ | $1109.775$ |
-
-#### C. Proyección de la Cajita Central $C_9$ y Vector OVC
-Evaluando $C_9 = [3, -1, 4, 0]$:
-- $\phi_{3/2}(3) = 905.865$ cents
-- $\phi_{3/2}(-1) = 498.045$ cents
-- $\phi_{3/2}(4) = 407.820$ cents
-- $\phi_{3/2}(0) = 0.000$ cents
-
-Ordenando las componentes internas para la evaluación morfológica del acorde basal: $[0.000, 407.820, 498.045, 905.865]$.
-Observamos la emergencia de una tercera cuasi-mayor ultra-justa ($407.82$ cents $\approx 5/4$ pitagórico), una cuarta justa imperfecta ($498.05$ cents) y una sexta mayor neutra ($905.87$ cents).
-
-#### D. Ordenamiento Escalar $S_{3/2, 9}$
-Ordenando ascendentemente los valores acústicos de $T_{3/2, 9}$:
-
-$$S_{3/2, 9} = (0.000, 203.910, 294.135, 407.820, 498.045, 701.955, 905.865, 996.090, 1109.775)$$
-
-Diferencias interválicas sucesivas ($\sigma_j$):
-- $\sigma_0 = 203.910 - 0.000 = 203.910$ cents (Tono grande, $L$)
-- $\sigma_1 = 294.135 - 203.910 = 90.225$ cents (Limma menor, $s$)
-- $\sigma_2 = 407.820 - 294.135 = 113.685$ cents (Apotomé / Semitono grande, $m$)
-- $\sigma_3 = 498.045 - 407.820 = 90.225$ cents ($s$)
-- $\sigma_4 = 701.955 - 498.045 = 203.910$ cents ($L$)
-- $\sigma_5 = 905.865 - 701.955 = 203.910$ cents ($L$)
-- $\sigma_6 = 996.090 - 905.865 = 90.225$ cents ($s$)
-- $\sigma_7 = 1109.775 - 996.090 = 113.685$ cents ($m$)
-- $\sigma_8 = (1200 + 0.000) - 1109.775 = 90.225$ cents ($s$)
-
-Estructura de la escala: $(L, s, m, s, L, L, s, m, s)$. La distribución exhibe una simetría de espejo centrada en el eje de la quinta ($701.955$ cents).
-
----
-
-### 2.3.2 Caso II: Sistema $N = 11$
-*Parámetros calculados:*
-- Dimensión: $N = 11$
-- Partición mediana: $P_m = 4$
-- Parámetro de acoplamiento: $A_N = 3$
-- Cajita Central: $C_{11} = [3, -2, 4, -1]$
-
-#### A. Expansión de Índices de la Cadena $T_{11}$
-La Cajita Central $[3, -2, 4, -1]$ ancla la génesis armónica. La intercalación simétrica polar incorpora los 7 índices remanentes:
-
-$$T_{11} = [-3, 5, -2, 3, -1, 4, 0, 6, 1, -4, 2]$$
-
-#### B. Proyección Acústica de la Cajita Central $C_{11}$
-- $\phi_{3/2}(3) = 905.865$ cents
-- $\phi_{3/2}(-2) = 996.090$ cents
-- $\phi_{3/2}(4) = 407.820$ cents
-- $\phi_{3/2}(-1) = 498.045$ cents
-
-Reordenamiento tímbrico-estructural del núcleo:
-$$C_{11}^{\text{sorted}} = [407.820, 498.045, 905.865, 996.090]$$
-
-Deltas locales de la Cajita $C_{11}$:
-- $\delta_0 = 498.045 - 407.820 = 90.225$ cents (Limma)
-- $\delta_1 = 905.865 - 498.045 = 407.820$ cents (Tercera Mayor)
-- $\delta_2 = 996.090 - 905.865 = 90.225$ cents (Limma)
-
-El vector deltas $(\delta_0, \delta_1, \delta_2) = (90.225, 407.820, 90.225)$ revela una **configuración estrictamente palindrómica**. La Cajita Central de $N=11$ introduce un complejo celular auto-inversivo en el baricentro del sistema, polarizando un intervalo armónico amplio flanqueado rígidamente por dos márgenes microtonales idénticos.
-
-#### C. Ordenamiento Escalar $S_{3/2, 11}$
-Calculando el conjunto completo y ordenando modularmente:
-
-$$S_{3/2, 11} = (0.000, 90.225, 203.910, 294.135, 407.820, 498.045, 601.740, 701.955, 905.865, 996.090, 1109.775)$$
-
-*Nótese la inserción de $601.740$ cents ($\approx$ tritono pitagórico / cuarta aumentada exocéntrica derivada del índice $6$), ausente en $N=9$.*
-
----
-
-## 2.4 El Acorde Transformante ($T_N$), Conducción de Voces (OVC) y Modulaciones Microtonales
-
-El comportamiento armónico dinámico en *The Chain Theory* no procede por enlaces interválicos diatónicos tradicionales, sino mediante la migración continua y la deformación controlada de la Cajita Central sobre la **Matriz Operativa Bi-Eje** $F_N$.
-
-```
-Matriz Bi-Eje F_N:
- Eje Mayor (r_M = 0)  ───[SD_2]───[SD]───[ T ]───[ D ]───[D_2]─── ...
-                             |       |     |       |       |
- Eje Menor (r_m = P_m)───[sd_2]───[sd]───[ t ]───[ d ]───[d_2]─── ...
-                                                      │
-                                    [ Acorde Simétrico Residual S_N ]
-                                            (Posición N - 3)
-```
-
-### 2.4.1 Matriz Operativa Bi-Eje ($F_N$) y Desplazamientos
-La matriz $F_N$ organiza la totalidad de las funciones sintácticas en dos estratos continuos vinculados por acoplamiento de fase:
-- **Eje Mayor (Fila 1):** Origen centrado en el índice $r_M = 0$ (Tónica Mayor, $T$).
-- **Eje Menor (Fila 2):** Origen centrado en el índice $r_m = P_m$ (Tónica Menor, $t$).
-
-Los vectores funcionales se generan a través del desplazamiento lineal escalar $c \in \mathbb{Z}$:
-- $c = +1 \implies$ Dominante ($D$ / $d$)
-- $c = -1 \implies$ Subdominante ($SD$ / $sd$)
-- $c = +2 \implies$ Dominante Secundaria ($D_2$ / $d_2$)
-- $c = -2 \implies$ Subdominante Secundaria ($SD_2$ / $sd_2$)
-
-Aislado invariablemente en el índice modular posicional:
-
-$$\text{Pos}(S_N) = N - 3$$
-
-reside el **Acorde Simétrico Residual** ($S_N$), cuya función armónica es la de pivote o bisagra neutra desprovista de polaridad mayor/menor, debido a la neutralización de sus deltas.
-
-### 2.4.2 El Operador OVC (Offset Vector Classification)
-El Operador OVC analiza los intervalos internos de cualquier tétrada resultante de un desplazamiento funcional $c$. Si definimos el vector de deltas internos para un acorde $A = (a_0, a_1, a_2, a_3)$ como:
-
-$$\Delta(A) = (a_1 - a_0, \; a_2 - a_1, \; a_3 - a_2)$$
-
-La función de calidad estructural $\mathcal{Q}(A)$ se formula como:
-
-$$\mathcal{Q}(A) = \begin{cases} 
-\text{Mayor (M)}, & \text{si } \Delta(A) \equiv \Delta(C_N) \\ 
-\text{Menor (m)}, & \text{si } \Delta(A) \equiv \text{rev}(\Delta(C_N)) \\ 
-\text{Simétrico (S)}, & \text{si } \Delta(A) \equiv \text{rev}(\Delta(A)) \quad \lor \quad A \equiv A_{N-3}
+$$\sigma_i = 
+\begin{cases} 
+s_{i+1} - s_i & \text{para } 0 \le i < N - 1 \\ 
+(1200 + s_0) - s_{N-1} & \text{para } i = N - 1 
 \end{cases}$$
 
-donde $\text{rev}(v)$ invierte el orden del vector.
+En un sistema estrictamente cerrado y equilibrado bajo simetría de la cadena tonal, $\vec{\sigma}^{(N)}$ exhibe como máximo tres clases de intervalos discretos (teorema de los tres pasos o *Three-Gap Theorem* de Steinhaus), lo que garantiza la coherencia estructural de la escala frente a modulaciones.
 
-### 2.4.3 Conducción Parsimoniosa y Modulación de Fase Microtonal
-El **Acorde Transformante** $T_N(c)$ es el operador que traslada suavemente la textura por el espacio modular. Para transitar del centro modal mayor $r_M = 0$ al centro menor $r_m = P_m$, la conducción parsimoniosa minimiza el desplazamiento métrico del espacio de alturas en $\ell_1$:
+### 2.2.2 Simetría Axial y Grados de Paso
+La simetría de la cadena tonal en sistemas mayores $N$-ET se formaliza mediante la involución de inversión armónica $I_\alpha$:
 
-$$\mathcal{D}(A, B) = \sum_{i=0}^{3} | \phi_p(a_i) - \phi_p(b_i) |$$
+$$I_\alpha(s) = (\alpha - s) \pmod{1200}$$
 
-Cuando se conecta un acorde polar con el Acorde Residual $S_N$ en $N-3$, el desplazamiento acústico converge a un mínimo absoluto, permitiendo **modulaciones enarmónicas microtonales** sin quiebre acústico perceptible:
-
-$$A_{\text{funcional}} \xrightarrow[\text{OVC parsimonioso}]{\Delta \to \text{inf}} S_N \xrightarrow[\text{re-rotación}]{\Delta \to \text{inf}} A'_{\text{funcional}}$$
+donde $\alpha$ es el eje axial de simetría acústica definido conjuntamente por el centro de gravedad de $C_N$. La conservación de esta simetría garantiza que los grados de paso generados por la expansión intercalada mantengan paridad interválica respecto a los centros tonales duales de la Matriz Bi-Eje ($r_M = 0$ y $r_m = P_m$).
 
 ---
 
-## 2.5 Algoritmo de Implementación: Modelo Generativo en SuperCollider
+## 2.3 Casos de Estudio: Análisis Estructural para $N = 9$ y $N = 11$
 
-El siguiente programa formaliza la teoría desarrollada: calcula la proyección acústica, genera el ordenamiento escalar modular $S_{p,N}$, clasifica las tétradas mediante OVC y sintetiza los acordes generatrices de $N=9$ y $N=11$ usando osciladores sinusoidales puros micro-afinados.
+A continuación, se desarrolla paso a paso el cálculo de la Cajita Central, el mapeo acústico paramétrico y el ordenamiento escalar para los sistemas microtonales nonario ($N=9$) y undecimario ($N=11$).
+
+---
+
+### 2.3.1 Sistema $N = 9$ ($9$-ET / Dominio Nonario)
+
+#### Parámetros Iniciales del Motor Matemático:
+- Cardinalidad: $N = 9$
+- Pivote Medio: $P_m = \left\lfloor \frac{9}{2} \right\rfloor = 4$
+- Grado Activo: $A_N = 3$
+- Cajita Central: $C_9 = [3, -1, 4, 0]$
+- Paso microtonal elemental de la división igual: $\Delta_{\text{cents}}^{(9)} = \frac{1200}{9} = 133.333 \text{ cents}$
+
+#### Expansión Simétrica Intercalada de Índices ($T_9$):
+Partiendo del núcleo central $C_9$, expandimos los 9 índices enteros de la cadena funcional equilibrada alrededor del pivote $P_m=4$:
+
+$$\mathbb{I}_9 = \{ -1, 0, 1, 2, 3, 4, 5, 6, 7 \}$$
+
+La Cajita Central aísla el subconjunto motor $[3, -1, 4, 0]$. Los deltas internos de la Cajita Central se evalúan como:
+
+$$\vec{\delta}(C_9) = (-1 - 3, \; 4 - (-1), \; 0 - 4) = (-4, \; 5, \; -4)$$
+
+Nótese la simetría invertida en los extremos ($-4$ y $-4$) mediada por el salto complementario de quinta neutrónica ($+5$).
+
+#### Mapeo Acústico en Cents:
+Tomando el generador canónico de quinta $p = 3$ (proyección pitagórica modulada) y cuantizando sobre el espacio de octava cerrado mediante reducción de cents:
+
+$$\phi(k) = (1200 \cdot k \cdot \log_2(3)) \pmod{1200} \approx (k \cdot 701.955) \pmod{1200}$$
+
+Calculamos los valores de cents sin ordenar correspondientes a cada índice de la cadena expandida:
+
+| Índice ($k$) | Cents Exactos ($p=3$) | Reducción $\pmod{1200}$ | Cuantización $9$-ET ($k \cdot 133.33$) | Clasificación Estructural |
+| :---: | :---: | :---: | :---: | :---: |
+| **$-1$** | $-701.955$ | $498.045$ | $400.00$ | Subdominante / $C_9$ |
+| **$0$** | $0.000$ | $0.000$ | $0.00$ | Eje Mayor ($r_M$) / $C_9$ |
+| **$1$** | $701.955$ | $701.955$ | $800.00$ | Dominante |
+| **$2$** | $1403.910$ | $203.910$ | $266.67$ | Grado de Paso |
+| **$3$** | $2105.865$ | $905.865$ | $933.33$ | $A_N$ Primario / $C_9$ |
+| **$4$** | $2807.820$ | $407.820$ | $533.33$ | Eje Menor ($r_m = P_m$) / $C_9$ |
+| **$5$** | $3509.775$ | $1109.775$ | $1066.67$ | Grado de Paso |
+| **$6$** | $4211.730$ | $611.730$ | $666.67$ | Acorde Simétrico Residual ($S_9$, pos $N-3$) |
+| **$7$** | $4913.685$ | $113.685$ | $133.33$ | Grado de Paso |
+
+#### Ordenamiento Escalar $S_{3,9}$:
+Ordenando el conjunto resultante en el dominio $[0, 1200)$ cents:
+
+$$S_{3,9} = (0.000, \; 113.685, \; 203.910, \; 407.820, \; 498.045, \; 611.730, \; 701.955, \; 905.865, \; 1109.775)$$
+
+Cuantizado a la grilla nativa de 9-ET ($S_9$):
+
+$$S_9 = (0.00, \; 133.33, \; 266.67, \; 400.00, \; 533.33, \; 666.67, \; 800.00, \; 933.33, \; 1066.67) \text{ cents}$$
+
+El vector de pasos para 9-ET es estrictamente uniforme: $\vec{\sigma}^{(9)} = (133.33)_{i=0}^8$. En el espacio continuo ($p=3$), emergen dos tipos de paso: limas pitagóricas y apotomes microtonales de $\sim 90.2$ y $\sim 113.7$ cents.
+
+---
+
+### 2.3.2 Sistema $N = 11$ ($11$-ET / Dominio Undecimario)
+
+#### Parámetros Iniciales del Motor Matemático:
+- Cardinalidad: $N = 11$
+- Pivote Medio: $P_m = 4$ *(definido por la calibración de la matriz base del motor)*
+- Grado Activo: $A_N = 3$
+- Cajita Central: $C_{11} = [3, -2, 4, -1]$
+- Paso microtonal elemental: $\Delta_{\text{cents}}^{(11)} = \frac{1200}{11} \approx 109.091 \text{ cents}$
+
+#### Dinámica de Índices de la Cajita Central:
+En $N = 11$, la Cajita Central profundiza la asimetría negativa introduciendo el índice $-2$:
+
+$$C_{11} = [3, -2, 4, -1]$$
+
+Calculando su vector de diferencias:
+
+$$\vec{\delta}(C_{11}) = (-2 - 3, \; 4 - (-2), \; -1 - 4) = (-5, \; 6, \; -5)$$
+
+Aparece el tritono neutro de orden undecimal ($6$ pasos en la cadena de 11), flanqueado por distancias de quinta simétrica invertida ($-5$).
+
+#### Expansión y Mapeo Acústico:
+Desplegando los 11 índices de la cadena funcional equilibrada $\mathbb{I}_{11} = \{-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7\}$ bajo la función $\phi(k, 3)$:
+
+| Índice ($k$) | Cents Exactos ($p=3$) | Reducción $\pmod{1200}$ | Cuantización $11$-ET ($k \cdot 109.09$) | Rol Estructural |
+| :---: | :---: | :---: | :---: | :---: |
+| **$-3$** | $-2105.865$ | $294.135$ | $218.18$ | Grado Neutro |
+| **$-2$** | $-1403.910$ | $996.090$ | $981.82$ | Sub-subdominante / $C_{11}$ |
+| **$-1$** | $-701.955$ | $498.045$ | $436.36$ | Subdominante / $C_{11}$ |
+| **$0$** | $0.000$ | $0.000$ | $0.00$ | Eje Mayor ($r_M$) |
+| **$1$** | $701.955$ | $701.955$ | $763.64$ | Dominante |
+| **$2$** | $1403.910$ | $203.910$ | $327.27$ | Grado Neutro |
+| **$3$** | $2105.865$ | $905.865$ | $872.73$ | $A_N$ Primario / $C_{11}$ |
+| **$4$** | $2807.820$ | $407.820$ | $545.45$ | Eje Menor ($r_m = P_m$) / $C_{11}$ |
+| **$5$** | $3509.775$ | $1109.775$ | $1090.91$ | Grado de Paso |
+| **$6$** | $4211.730$ | $611.730$ | $654.55$ | Grado de Paso |
+| **$7$** | $4913.685$ | $113.685$ | $109.09$ | Grado de Paso |
+
+#### Ordenamiento Escalar $S_{3,11}$:
+Aplicando $\mathcal{S}$ sobre el conjunto acústico obtenido:
+
+$$S_{3,11} = (0.000, \; 113.685, \; 203.910, \; 294.135, \; 407.820, \; 498.045, \; 611.730, \; 701.955, \; 905.865, \; 996.090, \; 1109.775)$$
+
+Proyectado a la escala temperada undecimal estándar ($11$-ET):
+
+$$S_{11} = (0.00, \; 109.09, \; 218.18, \; 327.27, \; 436.36, \; 545.45, \; 654.55, \; 763.64, \; 872.73, \; 981.82, \; 1090.91) \text{ cents}$$
+
+#### Identificación del Acorde Simétrico Residual $S_N$:
+Conforme al axioma de la Matriz Operativa Bi-Eje ($F_N$), el Acorde Simétrico Residual se localiza en la posición ordinal $k = N - 3$.
+- Para $N = 9$: Posición $9 - 3 = 6 \implies k = 6$ ($611.73 \text{ cents} \approx 666.67 \text{ cents}$ en $9$-ET). Es el tritono exacto o semioctava deformada.
+- Para $N = 11$: Posición $11 - 3 = 8 \implies$ En la cadena centrada corresponde al índice que aísla el balance modal, ubicándose en $k = 6$ dentro del subgrupo simétrico ($654.55 \text{ cents}$ en $11$-ET, el *intervalo neutro undecimal* hiperbólico).
+
+---
+
+## 2.4 Propiedades del Acorde Transformante $T_N$, Conducción de Voces (OVC) y Modulaciones Microtonales
+
+El **Acorde Transformante** $T_N$ opera como una estructura de transición que desacopla la polaridad funcional de los ejes primarios para habilitar modulaciones microtonales mediante la mínima perturbación geométrica.
+
+### 2.4.1 Operador OVC (Optimal Voice-leading Coefficient)
+El operador OVC cuantifica el costo métrico de desplazamiento por conducción de voces entre estructuras armónicas acopladas. Para dos acordes $A, B \subset \mathbb{R} / 1200\mathbb{Z}$ de cardinalidad $m$, definimos la distancia métrica $\mathcal{D}_{\text{OVC}}(A, B)$ como el ínfimo sobre todas las biyecciones de asignación de voces $\pi \in \mathfrak{S}_m$:
+
+$$\mathcal{D}_{\text{OVC}}(A, B) = \min_{\pi \in \mathfrak{S}_m} \left( \sum_{j=0}^{m-1} d_{\mathbb{T}}\left( a_j, \; b_{\pi(j)} \right)^2 \right)^{1/2}$$
+
+donde $d_{\mathbb{T}}(x, y) = \min(|x - y|, 1200 - |x - y|)$ representa la distancia geodésica toroidal sobre el círculo de octava.
+
+### 2.4.2 Clasificación de Calidades Mediante $\vec{\delta}(C_N)$
+Las tétradas o tríadas extraídas de $T_N$ se clasifican según el balance de sus diferencias adyacentes proyectadas en el espacio escalar:
+
+1. **Calidad Mayor ($\mathcal{Q}_M$):** Dominada por vectores de paso que maximizan la proyección del centro $r_M = 0$. En términos de cents, el intervalo inicial respecto a la fundamental modal aproxima una tercera mayor (ultra-templada en 9-ET: $400.00$ cents; neutralizada en 11-ET: $436.36$ cents).
+2. **Calidad Menor ($\mathcal{Q}_m$):** Centrada en torno a $r_m = P_m$. Presenta contracción del primer tercio escalar (327.27 cents en 11-ET, constituyendo una tercera neutra menor).
+3. **Calidad Simétrica ($\mathcal{Q}_S$):** Ocurre cuando los deltas satisfacen la involución:
+$$\delta_j = \delta_{m-1-j}$$
+Esta condición neutraliza el torque armónico, aislando el acorde en el vértice residual $S_N$.
+
+```
+           [ Eje Mayor: r_M = 0 ]  <---- Tónica Mayor (T)
+                     |
+            (Desplazamiento c)
+              c = +1 (D)  /  c = -1 (SD)
+              c = +2 (D2) /  c = -2 (SD2)
+                     |
+           [ Eje Menor: r_m = P_m ] <---- Tónica Menor (T)
+                     |
+       [ Acorde Simétrico Residual S_N ] (Posición N - 3)
+```
+
+### 2.4.3 Modulaciones Microtonales Parsimoniosas
+El Acorde Transformante $T_N$, al incorporar los índices extremos de $C_N$, actúa como puente de baja energía en espacios no euclidianos. En $11$-ET, el deslizamiento de una sola voz por un cuanto microtonal:
+
+$$\epsilon = \Delta_{\text{cents}}^{(11)} \approx 109.09 \text{ cents}$$
+
+permite la transformación continua de un complejo tonal mayor hacia una estructura menor simétrica, según se formaliza a continuación:
+
+$$C_{11} = [3, -2, 4, -1] \xrightarrow{\quad \text{OVC} \quad} C'_{11} = [3, -1, 4, 0]$$
+
+El costo del desplazamiento escalar es:
+
+$$\mathcal{D}_{\text{OVC}}(C_{11}, C'_{11}) = \sqrt{(0)^2 + (109.09)^2 + (0)^2 + (109.09)^2} = 109.09 \sqrt{2} \approx 154.28 \text{ cents}$$
+
+Este valor es significativamente inferior al umbral del semitono temperado tradicional ($200$ cents en movimientos paralelos de 12-ET), lo que evidencia que la modulación microtonal guiada por la Cajita Central preserva la consistencia perceptual del enlace armónico.
+
+---
+
+## 2.5 Implementación Computacional
+
+El siguiente algoritmo en SuperCollider modela el mapeo acústico, el cálculo matricial y el ordenamiento escalar de $S_{p,N}$, permitiendo la síntesis precisa de las estructuras de $C_N$ y de los vectores resultantes para $N = 9$ y $N = 11$.
 
 ```supercollider
 // =====================================================================
-// The Chain Theory: Motor de Proyección Acústica y Análisis OVC
-// Implementación: N = 9 y N = 11
+// THE CHAIN THEORY: Motor de Mapeo Acústico y Ordenamiento Escalar
 // =====================================================================
 
 (
-s.waitForBoot({
-    var nET_ChainEngine;
+var calculateChain = { |n = 9, prime = 3, rootFreq = 261.6255| // C4 base
+    var p_m, c_n, rawIndices, acousticCents, sortedCents, frequencies;
 
-    nET_ChainEngine = { |n = 9, pGen = 1.5, rootFreq = 261.626| // Middle C (C4)
-        var pm, cajita, t_indices, t_cents, s_cents, freqs, s_residual_idx;
+    p_m = (n / 2).floor.asInteger;
 
-        // 1. Cálculo de parámetros fundamentales
-        pm = (n / 2).floor.asInteger;
-        s_residual_idx = n - 3;
-
-        // Selección rigurosa de Cajita Central según motor de The Chain Theory
-        if (n == 9) {
-            cajita = [3, -1, 4, 0];
-        };
+    // Asignación de Cajita Central según cardinalidad
+    if (n == 9) {
+        c_n = [3, -1, 4, 0];
+    } {
         if (n == 11) {
-            cajita = [3, -2, 4, -1];
+            c_n = [3, -2, 4, -1];
+        } {
+            // Algoritmo generalizado por defecto
+            c_n = [p_m - 1, 0, p_m, 1];
         };
-
-        // 2. Mapeo Acústico Modular Mod 1200 cents
-        // cents = (1200 * idx * log2(p)) mod 1200
-        t_cents = cajita.collect { |idx|
-            var raw_cents = 1200 * idx * (pGen.log2);
-            raw_cents.wrap(0.0, 1200.0);
-        };
-
-        // 3. Ordenamiento Escalar (S_{p,N})
-        s_cents = t_cents.copy.sort;
-
-        // Conversión a Frecuencias Físicas (Hz)
-        freqs = s_cents.collect { |c| rootFreq * (2.pow(c / 1200.0)) };
-
-        // Presentación de Datos Analíticos
-        Post << "\n==============================================" << Char.nl;
-        Post << "  THE CHAIN THEORY: REPORTE DE ANÁLISIS ACÚSTICO " << Char.nl;
-        Post << "==============================================" << Char.nl;
-        Post << "Orden N-ET          : " << n << Char.nl;
-        Post << "Mediana P_m         : " << pm << Char.nl;
-        Post << "Cajita Central C_N  : " << cajita << Char.nl;
-        Post << "Índice Residual S_N : " << s_residual_idx << Char.nl;
-        Post << "Cents No Ordenados  : " << t_cents.round(0.001) << Char.nl;
-        Post << "Escala S_{p,N}      : " << s_cents.round(0.001) << Char.nl;
-        Post << "Frecuencias (Hz)    : " << freqs.round(0.01) << Char.nl;
-
-        // Deltas internos de la Cajita Central (OVC analysis)
-        Post << "Deltas C_N (cents)  : ";
-        (s_cents.size - 1).do { |i|
-            var delta = s_cents[i+1] - s_cents[i];
-            Post << delta.round(0.001) << " ";
-        };
-        Post << Char.nl;
-
-        // 4. Síntesis Sonora Espacializada del Acorde Transformante
-        {
-            var sig, env;
-            env = EnvGen.kr(Env.linen(attackTime: 1.5, sustainTime: 4.0, releaseTime: 2.5), doneAction: 2);
-            sig = freqs.collect { |f, i|
-                SinOsc.ar(f, mul: 0.1) * Pan2.ar(1.0, (i / (freqs.size - 1)) * 2 - 1)
-            }.sum;
-            sig * env;
-        }.play;
     };
 
-    // Ejecución secuencial analítica y sonora:
-    Routine({
-        nET_ChainEngine.value(9, 1.5, 261.626);  // Disparo sistema N = 9
-        8.0.wait;
-        nET_ChainEngine.value(11, 1.5, 261.626); // Disparo sistema N = 11
-    }).play;
-});
+    // Expansión simétrica de índices
+    rawIndices = Array.fill(n, { |i| i - (n/2).floor.asInteger });
+
+    // Mapeo Acústico Continuo reducido a la octava: (1200 * idx * log2(prime)) mod 1200
+    acousticCents = rawIndices.collect { |idx|
+        var c = (1200 * idx * (prime.log2)).mod(1200);
+        if (c < 0) { c = c + 1200 };
+        c;
+    };
+
+    // Ordenamiento Escalar S_{p,N}
+    sortedCents = acousticCents.copy.sort;
+
+    // Proyección a frecuencias audibles
+    frequencies = sortedCents.collect { |cents|
+        rootFreq * (2.pow(cents / 1200));
+    };
+
+    (
+        n: n,
+        p_m: p_m,
+        cajitaCentral: c_n,
+        indices: rawIndices,
+        acousticCents: acousticCents,
+        scalarScaleCents: sortedCents,
+        frequencies: frequencies
+    );
+};
+
+// Ejecución para N = 9 y N = 11
+~chain9  = calculateChain.(9, 3);
+~chain11 = calculateChain.(11, 3);
+
+"=== RESULTADOS N = 9 ===".postln;
+~chain9.postln;
+
+"=== RESULTADOS N = 11 ===".postln;
+~chain11.postln;
+)
+
+// Síntesis auditiva del Acorde Transformante TN sobre N=11
+(
+SynthDef(\chainTone, { |freq = 440, amp = 0.1, gate = 1, out = 0|
+    var sig, env;
+    env = EnvGen.kr(Env.asr(0.05, 1, 0.1), gate, doneAction: 2);
+    sig = SinOsc.ar(freq) * env * amp;
+    Out.ar(out, Pan2.ar(sig, 0));
+}).add;
+)
+
+// Reproducción arpegiada de la escala resultante S_{3,11}
+(
+Pbind(
+    \instrument, \chainTone,
+    \freq, Pseq(~chain11[\frequencies], 1),
+    \dur, 0.2,
+    \amp, 0.15
+).play;
 )
 ```
 
 ---
 
-## 2.6 Sumario Estructural y Proyecciones Modales
+## 2.6 Conclusión Epistemológica del Capítulo
 
-El comportamiento comparativo de los sistemas analizados confirma los teoremas de estabilidad de *The Chain Theory*:
+El análisis de los sistemas de orden impar $N=9$ y $N=11$ evidencia que el espacio interválico microtonal no es una mera partición atomizada del continuo de frecuencias, sino una **red topológica proyectiva**. 
 
-1. **Compresión de la Cajita Central:** Mientras que en $N=9$ la Cajita Central $[3, -1, 4, 0]$ engloba un ancho de banda escalar de $407.82$ cents para la tercera estructural (generando una polaridad mayoritaria que estabiliza el eje funcional $r_M = 0$), en $N=11$ la Cajita $[3, -2, 4, -1]$ se densifica internamente mediante dos intervalos delimitadores simétricos idénticos de $90.225$ cents.
-2. **El Vector Palindrómico en $N=11$:** La naturaleza estrictamente palindrómica de $\Delta(C_{11}) = (90.225, 407.820, 90.225)$ predispone a este sistema a una **hibridación modal continua**, donde la frontera entre el Acorde Mayor y el Acorde Menor en $F_{11}$ queda neutralizada dinámicamente.
-3. **El Papel Pivote de $S_N$:** En $N=9$, la posición simétrica $S_9$ queda localizada en el índice $9 - 3 = 6$. En $N=11$, se ubica en el índice $11 - 3 = 8$. Estos índices corresponden topológicamente a las zonas de máxima entropía de fase acústica, funcionando como atractores para modulaciones entre macro-escalas de afinación justas sin que colapse la continuidad perceptual de las voces.
+A través del **Mapeo Acústico** y el **Ordenamiento Escalar** ($S_{p,N}$), la Cajita Central ($C_N$) actúa como un condensador armónico invariante bajo inversión modal. Los desfases detectados en los vectores interválicos revelan que la transformación parsimoniosa entre calidades modales mayores y menores depende funcionalmente de la conservación de la simetría del pivote $P_m$. Esta formulación proporciona el andamiaje axiomático para el desarrollo, en el siguiente capítulo, de la interacción vectorial en la Matriz Bi-Eje ($F_N$).
